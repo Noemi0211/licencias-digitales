@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uso legal de contenidos digitales</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <script>
+    // --- Integración SCORM 1.2: detección de API y marcado de completado ---
+    var scormAPI = null;
+
+    /**
+     * Busca la API de SCORM en la ventana actual o en ventanas padre.
+     * Requerido para que Moodle/Aules detecte el estado del SCO.
+     */
+    function buscarSCORMAPI() {
+      if (typeof API !== "undefined") return API;
+      if (typeof window.API !== "undefined") return window.API;
+      if (parent && typeof parent.API !== "undefined") return parent.API;
+      if (parent && parent.parent && typeof parent.parent.API !== "undefined") return parent.parent.API;
+      return null;
+    }
+
+    /**
+     * Marca el SCO como completado en el LMS.
+     * Se llama automáticamente al cargar la página.
+     */
+    function marcarCompletado() {
+      scormAPI = buscarSCORMAPI();
+      if (scormAPI) {
+        scormAPI.LMSSetValue("cmi.core.lesson_status", "completed");
+        scormAPI.LMSCommit("");
+      }
+    }
+
+    // Inicializar al cargar
+    window.addEventListener("load", marcarCompletado);
+  </script>
+</head>
+<body>
+
+  <!-- PANTALLA 1: Introducción -->
+  <div id="pantalla1" class="pantalla">
+    <img src="img/logo.png" alt="Logo del recurso educativo" class="logo-inicio">
+    <h1>Uso legal de contenidos digitales</h1>
+    <p class="descripcion-inicio">
+      En esta actividad aprenderás a identificar distintos tipos de licencias de uso
+      de contenidos digitales: Creative Commons, dominio público, copyright y más.
+    </p>
+    <p class="descripcion-inicio">
+      Se te mostrará una imagen con un tipo de licencia y deberás indicar cuál es
+      seleccionando la opción correcta.
+    </p>
+    <button class="btn-principal" onclick="empezar()">Empezar</button>
+  </div>
+
+  <!-- PANTALLA 2: Repaso de contenidos -->
+  <div id="pantalla2" class="pantalla oculto">
+    <h2>Repaso de contenidos</h2>
+    <p>Antes de comenzar, revisa la siguiente infografía con el resumen de las licencias más habituales.</p>
+    <div class="contenedor-infografia">
+      <img src="img/Cartel_licencias.png"
+           alt="Infografía con el resumen de las licencias de uso de contenidos digitales: Creative Commons, dominio público y copyright"
+           class="infografia">
+    </div>
+    <button class="btn-principal" onclick="continuarDesdeInfografia()">Continuar a la actividad</button>
+  </div>
+
+  <!-- PANTALLA 3: Actividad -->
+  <div id="pantalla3" class="pantalla oculto">
+    <!-- Barra de progreso -->
+    <div id="barraProgreso" class="barra-progreso">
+      <div class="progreso-texto"><span id="textoProgreso">Pregunta 1 de 5</span></div>
+      <div class="progreso-track">
+        <div id="progresoFill" class="progreso-fill" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <h2>Identifica la licencia</h2>
+    <p>Mira la imagen que se muestra a continuación y selecciona la licencia que corresponde.</p>
+
+    <div class="contenedor-imagen">
+      <img id="imagenLicencia" src="" alt="Imagen de licencia a identificar">
+    </div>
+
+    <div class="contenedor-formulario">
+      <label for="respuesta"><strong>¿Qué licencia es?</strong></label>
+      <select id="respuesta">
+        <option value="">— Selecciona una opción —</option>
+        <option value="Dominio público">Obras no protegidas por derechos de autor, libres de uso para cualquier fin</option>
+        <option value="Copyright">Todos los derechos reservados; requiere permiso del autor para cualquier uso</option>
+        <option value="Copyleft">Permite libre uso y modificación, siempre que las obras derivadas mantengan la misma licencia</option>
+        <option value="Copyfarleft">Copyleft que impide la apropiación privativa del beneficio económico de la obra</option>
+        <option value="BY">Requiere citar al autor original de la obra en cualquier uso o distribución</option>
+        <option value="SA">Exige que las obras derivadas se distribuyan con la misma licencia</option>
+        <option value="NC">Prohíbe el uso comercial de la obra; solo permite uso educativo, investigador o personal</option>
+        <option value="ND">No permite crear obras derivadas; la obra solo puede copiarse y distribuirse tal cual</option>
+        <option value="CC BY">Reconocimiento. Obliga a citar al autor original de la obra en cualquier uso o distribución</option>
+        <option value="CC BY-SA">Reconocimiento + Compartir Igual. Se puede adaptar, pero la obra derivada debe llevar la misma licencia</option>
+        <option value="CC BY-NC">Reconocimiento + No Comercial. Solo permite adaptar la obra para usos no comerciales</option>
+        <option value="CC BY-NC-SA">Reconocimiento + No Comercial + Compartir Igual. Solo uso no comercial y la obra derivada debe llevar la misma licencia</option>
+        <option value="CC BY-NC-ND">Reconocimiento + No Comercial + Sin Derivadas. La licencia más restrictiva de Creative Commons</option>
+        <option value="CC BY-ND">Reconocimiento + Sin Derivadas. Permite usar y distribuir, pero no permite modificar la obra</option>
+      </select>
+
+      <div class="botones-actividad">
+        <button class="btn-principal" onclick="comprobar()">Comprobar</button>
+        <button class="btn-ayuda" onclick="toggleAyuda()">¿Necesitas ayuda?</button>
+      </div>
+
+      <!-- Panel de ayuda colapsable -->
+      <div id="panelAyuda" class="panel-ayuda oculto">
+        <h3>Recordatorio de licencias</h3>
+        <div class="infografia-ayuda">
+          <img src="img/Cartel_licencias.png"
+               alt="Infografía con el resumen de las licencias de uso de contenidos digitales"
+               class="infografia">
+        </div>
+        <ul>
+          <li><strong>Dominio público:</strong> Obras no protegidas por derechos de autor, libres de uso para cualquier fin.</li>
+          <li><strong>Copyright:</strong> Todos los derechos reservados; requiere permiso del autor para cualquier uso.</li>
+          <li><strong>Copyleft:</strong> Permite libre uso y modificación, siempre que las obras derivadas mantengan la misma licencia.</li>
+          <li><strong>Copyfarleft:</strong> Copyleft que impide la apropiación privativa del beneficio económico.</li>
+          <li><strong>BY:</strong> Obliga a citar al autor original de la obra en cualquier uso o distribución.</li>
+          <li><strong>SA:</strong> Exige que las obras derivadas se distribuyan con la misma licencia.</li>
+          <li><strong>NC:</strong> Prohíbe el uso comercial; solo permite uso educativo, investigador o personal.</li>
+          <li><strong>ND:</strong> No permite crear obras derivadas; la obra solo puede copiarse y distribuirse tal cual.</li>
+          <li><strong>CC BY:</strong> Reconocimiento. Obliga a citar al autor original en cualquier uso o distribución.</li>
+          <li><strong>CC BY-SA:</strong> Reconocimiento + Compartir Igual. Se puede adaptar, pero la obra derivada debe llevar la misma licencia.</li>
+          <li><strong>CC BY-NC:</strong> Reconocimiento + No Comercial. Solo permite adaptar la obra para usos no comerciales.</li>
+          <li><strong>CC BY-NC-SA:</strong> Reconocimiento + No Comercial + Compartir Igual. Solo uso no comercial y la obra derivada debe llevar la misma licencia.</li>
+          <li><strong>CC BY-NC-ND:</strong> Reconocimiento + No Comercial + Sin Derivadas. La licencia más restrictiva de Creative Commons.</li>
+          <li><strong>CC BY-ND:</strong> Reconocimiento + Sin Derivadas. Permite usar y distribuir, pero no permite modificar la obra.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANTALLA 4: Feedback -->
+  <div id="pantalla4" class="pantalla oculto">
+    <h2>Resultado</h2>
+
+    <div id="zonaResultado" class="zona-resultado">
+      <div id="contenedorImgCorrecta" class="contenedor-feedback-img">
+        <p><strong>Licencia correcta:</strong></p>
+        <img id="imagenResultado" src="" alt="Imagen de la licencia correcta">
+      </div>
+
+      <div id="contenedorImgElegida" class="contenedor-feedback-img oculto">
+        <p><strong>Tu respuesta:</strong></p>
+        <img id="imagenElegida" src="" alt="Imagen de la licencia seleccionada por el alumno">
+      </div>
+    </div>
+
+    <div id="textoResultado" class="texto-resultado"></div>
+
+    <div class="contenedor-explicacion">
+      <p id="explicacionLicencia"></p>
+    </div>
+
+    <button class="btn-principal" id="btnSiguientePregunta" onclick="siguientePregunta()">Siguiente pregunta</button>
+    <button class="btn-principal oculto" id="btnVerResultado" onclick="mostrarResultado()">Ver resultado</button>
+  </div>
+
+  <!-- PANTALLA 5: Resultado final -->
+  <div id="pantalla5" class="pantalla oculto">
+    <h2>Resultado final</h2>
+
+    <div class="resultado-final-contenedor">
+      <div class="resultado-circulo" id="circuloResultado">
+        <span id="porcentajeResultado">0%</span>
+      </div>
+      <p class="resultado-texto-detalle" id="textoDetalle"></p>
+    </div>
+
+    <div class="resultado-desglose" id="desgloseResultados"></div>
+
+    <button class="btn-principal" onclick="reiniciar()">Volver a intentar</button>
+  </div>
+
+  <!-- Botón fijo de accesibilidad -->
+  <button id="btnEscuchar" class="btn-accesibilidad-fijo" onclick="escucharContenido()">🔊 Escuchar contenido</button>
+
+  <!-- Pie de licencia del recurso -->
+  <footer id="pie" class="pie-licencia">
+    <img src="img/CC_BY_NC_SA.png" alt="Icono Creative Commons BY-NC-SA" class="icono-cc">
+    <span>
+      Material para el aula de Ofimática © 2026 por Noemí Celaya Mingot está licenciada bajo
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">
+        CC BY-NC-SA 4.0
+      </a>.
+    </span>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

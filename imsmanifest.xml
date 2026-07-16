@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest identifier="licencias-digitales"
+          xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
+          xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2
+                              imscp_rootv1p1p2.xsd
+                              http://www.adlnet.org/xsd/adlcp_rootv1p2
+                              adlcp_rootv1p2.xsd">
+
+  <metadata>
+    <schema>ADL SCORM</schema>
+    <schemaversion>1.2</schemaversion>
+  </metadata>
+
+  <organizations default="licencias-digitales-org">
+    <organization identifier="licencias-digitales-org">
+      <title>Uso legal de contenidos digitales</title>
+      <item identifier="item-1" identifierref="resource-1">
+        <title>Actividad: Licencias digitales</title>
+      </item>
+    </organization>
+  </organizations>
+
+  <resources>
+    <resource identifier="resource-1" type="webcontent" adlcp:scormtype="sco" href="index.html">
+      <file href="index.html"/>
+      <file href="css/estilos.css"/>
+      <file href="js/script.js"/>
+      <file href="img/BY.png"/>
+      <file href="img/Cartel_licencias.png"/>
+      <file href="img/CC.png"/>
+      <file href="img/CC_BY.png"/>
+      <file href="img/CC_BY_NC.png"/>
+      <file href="img/CC_BY_NC_ND.png"/>
+      <file href="img/CC_BY_NC_SA.png"/>
+      <file href="img/CC_BY_ND.png"/>
+      <file href="img/CC_BY_SA.png"/>
+      <file href="img/Copyfarleft.png"/>
+      <file href="img/Copyleft.png"/>
+      <file href="img/Copyright.png"/>
+      <file href="img/Dominio_p%C3%BAblico.png"/>
+      <file href="img/NC.png"/>
+      <file href="img/ND.png"/>
+      <file href="img/SA.png"/>
+      <file href="img/logo.png"/>
+    </resource>
+  </resources>
+
+</manifest>
