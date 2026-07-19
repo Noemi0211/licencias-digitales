@@ -1,50 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<manifest identifier="licencias-digitales"
-          xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
-          xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2
-                              imscp_rootv1p1p2.xsd
-                              http://www.adlnet.org/xsd/adlcp_rootv1p2
-                              adlcp_rootv1p2.xsd">
+<manifest identifier="estudio-licencias-digitales"
+    xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
+    xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd
+        http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd">
 
-  <metadata>
-    <schema>ADL SCORM</schema>
-    <schemaversion>1.2</schemaversion>
-  </metadata>
+    <metadata>
+        <schema>ADL SCORM</schema>
+        <schemaversion>1.2</schemaversion>
+    </metadata>
 
-  <organizations default="licencias-digitales-org">
-    <organization identifier="licencias-digitales-org">
-      <title>Uso legal de contenidos digitales</title>
-      <item identifier="item-1" identifierref="resource-1">
-        <title>Actividad: Licencias digitales</title>
-      </item>
-    </organization>
-  </organizations>
+    <organizations default="org_estudio_licencias">
+        <organization identifier="org_estudio_licencias">
+            <title>Estudio de Licencias Digitales - Ruta de Aprendizaje</title>
+            <item identifier="item_estudio" identifierref="res_estudio">
+                <title>Ruta de Aprendizaje: Licencias Digitales</title>
+            </item>
+        </organization>
+    </organizations>
 
-  <resources>
-    <resource identifier="resource-1" type="webcontent" adlcp:scormtype="sco" href="index.html">
-      <file href="index.html"/>
-      <file href="css/estilos.css"/>
-      <file href="js/script.js"/>
-      <file href="img/BY.png"/>
-      <file href="img/Cartel_licencias.png"/>
-      <file href="img/CC.png"/>
-      <file href="img/CC_BY.png"/>
-      <file href="img/CC_BY_NC.png"/>
-      <file href="img/CC_BY_NC_ND.png"/>
-      <file href="img/CC_BY_NC_SA.png"/>
-      <file href="img/CC_BY_ND.png"/>
-      <file href="img/CC_BY_SA.png"/>
-      <file href="img/Copyfarleft.png"/>
-      <file href="img/Copyleft.png"/>
-      <file href="img/Copyright.png"/>
-      <file href="img/Dominio_p%C3%BAblico.png"/>
-      <file href="img/NC.png"/>
-      <file href="img/ND.png"/>
-      <file href="img/SA.png"/>
-      <file href="img/logo.png"/>
-    </resource>
-  </resources>
-
+    <resources>
+        <resource identifier="res_estudio" type="webcontent" adlcp:scormtype="sco" href="index.html">
+            <title>Ruta de Aprendizaje: Licencias Digitales</title>
+            <!-- HTML y CSS -->
+            <file href="index.html"/>
+            <file href="css/estudio.css"/>
+            <!-- Módulos JavaScript (orden de carga) -->
+            <file href="js/data.js"/>
+            <file href="js/utils.js"/>
+            <file href="js/scorm.js"/>
+            <file href="js/tts.js"/>
+            <file href="js/confetti.js"/>
+            <file href="js/navigation.js"/>
+            <file href="js/step1.js"/>
+            <file href="js/step2.js"/>
+            <file href="js/step3.js"/>
+            <file href="js/step4.js"/>
+            <file href="js/step5.js"/>
+            <file href="js/step6.js"/>
+            <file href="js/results.js"/>
+            <file href="js/teacher.js"/>
+            <file href="js/app.js"/>
+            <!-- Vídeo -->
+            <file href="Licencias_en_Sanidad.mp4"/>
+            <!-- Imágenes -->
+            <file href="img/logo.png"/>
+            <file href="img/secuencia_aprendizaje.png"/>
+            <file href="img/Cartel_licencias.png"/>
+            <file href="img/CC_BY_NC_SA.png"/>
+            <file href="img/CC.png"/>
+            <file href="img/Copyright.png"/>
+            <file href="img/Copyleft.png"/>
+            <file href="img/Copyfarleft.png"/>
+            <file href="img/Dominio-publico.png"/>
+            <file href="img/BY.png"/>
+            <file href="img/SA.png"/>
+            <file href="img/NC.png"/>
+            <file href="img/ND.png"/>
+            <file href="img/CC_BY.png"/>
+            <file href="img/CC_BY_SA.png"/>
+            <file href="img/CC_BY_NC.png"/>
+            <file href="img/CC_BY_ND.png"/>
+            <file href="img/CC_BY_NC_SA.png"/>
+            <file href="img/CC_BY_NC_ND.png"/>
+        </resource>
+    </resources>
 </manifest>

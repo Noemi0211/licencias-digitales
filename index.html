@@ -3,195 +3,203 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Uso legal de contenidos digitales</title>
-  <link rel="stylesheet" href="css/estilos.css">
-  <script>
-    // --- Integración SCORM 1.2: detección de API y marcado de completado ---
-    var scormAPI = null;
-
-    /**
-     * Busca la API de SCORM en la ventana actual o en ventanas padre.
-     * Requerido para que Moodle/Aules detecte el estado del SCO.
-     */
-    function buscarSCORMAPI() {
-      if (typeof API !== "undefined") return API;
-      if (typeof window.API !== "undefined") return window.API;
-      if (parent && typeof parent.API !== "undefined") return parent.API;
-      if (parent && parent.parent && typeof parent.parent.API !== "undefined") return parent.parent.API;
-      return null;
-    }
-
-    /**
-     * Marca el SCO como completado en el LMS.
-     * Se llama automáticamente al cargar la página.
-     */
-    function marcarCompletado() {
-      scormAPI = buscarSCORMAPI();
-      if (scormAPI) {
-        scormAPI.LMSSetValue("cmi.core.lesson_status", "completed");
-        scormAPI.LMSCommit("");
-      }
-    }
-
-    // Inicializar al cargar
-    window.addEventListener("load", marcarCompletado);
-  </script>
+  <title>Estudio de Licencias Digitales</title>
+  <link rel="stylesheet" href="css/estudio.css">
 </head>
 <body>
 
-  <!-- PANTALLA 1: Introducción -->
-  <div id="pantalla1" class="pantalla">
-    <img src="img/logo.png" alt="Logo del recurso educativo" class="logo-inicio">
-    <h1>Uso legal de contenidos digitales</h1>
-    <p class="descripcion-inicio">
-      En esta actividad aprenderás a identificar distintos tipos de licencias de uso
-      de contenidos digitales: Creative Commons, dominio público, copyright y más.
-    </p>
-    <p class="descripcion-inicio">
-      Se te mostrará una imagen con un tipo de licencia y deberás indicar cuál es
-      seleccionando la opción correcta.
-    </p>
-    <button class="btn-principal" onclick="empezar()">Empezar</button>
-  </div>
-
-  <!-- PANTALLA 2: Repaso de contenidos -->
-  <div id="pantalla2" class="pantalla oculto">
-    <h2>Repaso de contenidos</h2>
-    <p>Antes de comenzar, revisa la siguiente infografía con el resumen de las licencias más habituales.</p>
-    <div class="contenedor-infografia">
-      <img src="img/Cartel_licencias.png"
-           alt="Infografía con el resumen de las licencias de uso de contenidos digitales: Creative Commons, dominio público y copyright"
-           class="infografia">
+  <!-- CABECERA -->
+  <header class="header">
+    <img src="img/logo.png" alt="Logo" id="header-logo">
+    <div class="header-text">
+      <h1>Licencias Digitales</h1>
+      <p>Ruta de aprendizaje &mdash; Documentaci&oacute;n y Administraci&oacute;n Sanitarias</p>
     </div>
-    <button class="btn-principal" onclick="continuarDesdeInfografia()">Continuar a la actividad</button>
-  </div>
+  </header>
 
-  <!-- PANTALLA 3: Actividad -->
-  <div id="pantalla3" class="pantalla oculto">
-    <!-- Barra de progreso -->
-    <div id="barraProgreso" class="barra-progreso">
-      <div class="progreso-texto"><span id="textoProgreso">Pregunta 1 de 5</span></div>
-      <div class="progreso-track">
-        <div id="progresoFill" class="progreso-fill" style="width: 0%"></div>
-      </div>
-    </div>
+  <!-- ========== PANTALLA DE INICIO ========== -->
+  <section id="screen-intro" class="screen active">
+    <div class="intro-container">
+      <img src="img/logo.png" alt="Logo" class="intro-logo">
+      <h1>Licencias Digitales</h1>
+      <h2>Ruta de Aprendizaje</h2>
 
-    <h2>Identifica la licencia</h2>
-    <p>Mira la imagen que se muestra a continuación y selecciona la licencia que corresponde.</p>
-
-    <div class="contenedor-imagen">
-      <img id="imagenLicencia" src="" alt="Imagen de licencia a identificar">
-    </div>
-
-    <div class="contenedor-formulario">
-      <label for="respuesta"><strong>¿Qué licencia es?</strong></label>
-      <select id="respuesta">
-        <option value="">— Selecciona una opción —</option>
-        <option value="Dominio público">Obras no protegidas por derechos de autor, libres de uso para cualquier fin</option>
-        <option value="Copyright">Todos los derechos reservados; requiere permiso del autor para cualquier uso</option>
-        <option value="Copyleft">Permite libre uso y modificación, siempre que las obras derivadas mantengan la misma licencia</option>
-        <option value="Copyfarleft">Copyleft que impide la apropiación privativa del beneficio económico de la obra</option>
-        <option value="BY">Requiere citar al autor original de la obra en cualquier uso o distribución</option>
-        <option value="SA">Exige que las obras derivadas se distribuyan con la misma licencia</option>
-        <option value="NC">Prohíbe el uso comercial de la obra; solo permite uso educativo, investigador o personal</option>
-        <option value="ND">No permite crear obras derivadas; la obra solo puede copiarse y distribuirse tal cual</option>
-        <option value="CC BY">Reconocimiento. Obliga a citar al autor original de la obra en cualquier uso o distribución</option>
-        <option value="CC BY-SA">Reconocimiento + Compartir Igual. Se puede adaptar, pero la obra derivada debe llevar la misma licencia</option>
-        <option value="CC BY-NC">Reconocimiento + No Comercial. Solo permite adaptar la obra para usos no comerciales</option>
-        <option value="CC BY-NC-SA">Reconocimiento + No Comercial + Compartir Igual. Solo uso no comercial y la obra derivada debe llevar la misma licencia</option>
-        <option value="CC BY-NC-ND">Reconocimiento + No Comercial + Sin Derivadas. La licencia más restrictiva de Creative Commons</option>
-        <option value="CC BY-ND">Reconocimiento + Sin Derivadas. Permite usar y distribuir, pero no permite modificar la obra</option>
-      </select>
-
-      <div class="botones-actividad">
-        <button class="btn-principal" onclick="comprobar()">Comprobar</button>
-        <button class="btn-ayuda" onclick="toggleAyuda()">¿Necesitas ayuda?</button>
+      <div class="intro-sequence-img" onclick="startSequence()">
+        <img src="img/secuencia_aprendizaje.png" alt="Secuencia de aprendizaje" id="img-secuencia">
+        <p class="click-hint">Pulsa para iniciar la secuencia</p>
       </div>
 
-      <!-- Panel de ayuda colapsable -->
-      <div id="panelAyuda" class="panel-ayuda oculto">
-        <h3>Recordatorio de licencias</h3>
-        <div class="infografia-ayuda">
-          <img src="img/Cartel_licencias.png"
-               alt="Infografía con el resumen de las licencias de uso de contenidos digitales"
-               class="infografia">
-        </div>
-        <ul>
-          <li><strong>Dominio público:</strong> Obras no protegidas por derechos de autor, libres de uso para cualquier fin.</li>
-          <li><strong>Copyright:</strong> Todos los derechos reservados; requiere permiso del autor para cualquier uso.</li>
-          <li><strong>Copyleft:</strong> Permite libre uso y modificación, siempre que las obras derivadas mantengan la misma licencia.</li>
-          <li><strong>Copyfarleft:</strong> Copyleft que impide la apropiación privativa del beneficio económico.</li>
-          <li><strong>BY:</strong> Obliga a citar al autor original de la obra en cualquier uso o distribución.</li>
-          <li><strong>SA:</strong> Exige que las obras derivadas se distribuyan con la misma licencia.</li>
-          <li><strong>NC:</strong> Prohíbe el uso comercial; solo permite uso educativo, investigador o personal.</li>
-          <li><strong>ND:</strong> No permite crear obras derivadas; la obra solo puede copiarse y distribuirse tal cual.</li>
-          <li><strong>CC BY:</strong> Reconocimiento. Obliga a citar al autor original en cualquier uso o distribución.</li>
-          <li><strong>CC BY-SA:</strong> Reconocimiento + Compartir Igual. Se puede adaptar, pero la obra derivada debe llevar la misma licencia.</li>
-          <li><strong>CC BY-NC:</strong> Reconocimiento + No Comercial. Solo permite adaptar la obra para usos no comerciales.</li>
-          <li><strong>CC BY-NC-SA:</strong> Reconocimiento + No Comercial + Compartir Igual. Solo uso no comercial y la obra derivada debe llevar la misma licencia.</li>
-          <li><strong>CC BY-NC-ND:</strong> Reconocimiento + No Comercial + Sin Derivadas. La licencia más restrictiva de Creative Commons.</li>
-          <li><strong>CC BY-ND:</strong> Reconocimiento + Sin Derivadas. Permite usar y distribuir, pero no permite modificar la obra.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- PANTALLA 4: Feedback -->
-  <div id="pantalla4" class="pantalla oculto">
-    <h2>Resultado</h2>
-
-    <div id="zonaResultado" class="zona-resultado">
-      <div id="contenedorImgCorrecta" class="contenedor-feedback-img">
-        <p><strong>Licencia correcta:</strong></p>
-        <img id="imagenResultado" src="" alt="Imagen de la licencia correcta">
+      <div class="intro-select-container">
+        <label for="intro-select"><strong>O ir directamente a:</strong></label>
+        <select id="intro-select" class="intro-select" onchange="goToStep(parseInt(this.value))">
+          <option value="">&mdash; Selecciona un paso &mdash;</option>
+          <option value="1">Paso 1: Evaluaci&oacute;n Inicial</option>
+          <option value="2">Paso 2: V&iacute;deo &mdash; Licencias en Sanidad</option>
+          <option value="3">Paso 3: Infograf&iacute;a de Licencias</option>
+          <option value="4">Paso 4: Pr&aacute;ctica &mdash; Identifica Licencias</option>
+          <option value="5">Paso 5: Juego &mdash; Detective de Licencias</option>
+          <option value="6">Paso 6: Evaluaci&oacute;n Final</option>
+        </select>
       </div>
 
-      <div id="contenedorImgElegida" class="contenedor-feedback-img oculto">
-        <p><strong>Tu respuesta:</strong></p>
-        <img id="imagenElegida" src="" alt="Imagen de la licencia seleccionada por el alumno">
+    </div>
+  </section>
+
+  <!-- ========== PLANTILLA DE PASOS ========== -->
+
+  <!-- PASO 1: Evaluación Inicial -->
+  <section id="screen-step1" class="screen">
+    <div class="step-card">
+      <div class="step-header">
+        <span class="step-badge">Paso 1 de 6</span>
+        <h2>Evaluaci&oacute;n Inicial</h2>
+        <p class="step-subtitle">Eval&uacute;a tus conocimientos previos sobre licencias digitales</p>
+      </div>
+      <div class="step-content" id="step1-content"></div>
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="goToIntro()">&#8592; Inicio</button>
+        <button class="btn btn-primary" onclick="goToStep(2)">Siguiente &#8594;</button>
       </div>
     </div>
+  </section>
 
-    <div id="textoResultado" class="texto-resultado"></div>
-
-    <div class="contenedor-explicacion">
-      <p id="explicacionLicencia"></p>
-    </div>
-
-    <button class="btn-principal" id="btnSiguientePregunta" onclick="siguientePregunta()">Siguiente pregunta</button>
-    <button class="btn-principal oculto" id="btnVerResultado" onclick="mostrarResultado()">Ver resultado</button>
-  </div>
-
-  <!-- PANTALLA 5: Resultado final -->
-  <div id="pantalla5" class="pantalla oculto">
-    <h2>Resultado final</h2>
-
-    <div class="resultado-final-contenedor">
-      <div class="resultado-circulo" id="circuloResultado">
-        <span id="porcentajeResultado">0%</span>
+  <!-- PASO 2: Vídeo -->
+  <section id="screen-step2" class="screen">
+    <div class="step-card">
+      <div class="step-header">
+        <span class="step-badge">Paso 2 de 6</span>
+        <h2>Licencias en Sanidad</h2>
+        <p class="step-subtitle">Visualiza este v&iacute;deo sobre licencias digitales en el &aacute;mbito sanitario</p>
       </div>
-      <p class="resultado-texto-detalle" id="textoDetalle"></p>
+      <div class="step-content" id="step2-content"></div>
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="goToStep(1)">&#8592; Anterior</button>
+        <button class="btn btn-primary" onclick="goToStep(3)">Siguiente &#8594;</button>
+      </div>
     </div>
+  </section>
 
-    <div class="resultado-desglose" id="desgloseResultados"></div>
+  <!-- PASO 3: Infografía -->
+  <section id="screen-step3" class="screen">
+    <div class="step-card">
+      <div class="step-header">
+        <span class="step-badge">Paso 3 de 6</span>
+        <h2>Infograf&iacute;a de Licencias</h2>
+        <p class="step-subtitle">Consulta este cartel con el resumen de las licencias m&aacute;s habituales</p>
+      </div>
+      <div class="step-content" id="step3-content"></div>
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="goToStep(2)">&#8592; Anterior</button>
+        <button class="btn btn-primary" onclick="goToStep(4)">Siguiente &#8594;</button>
+      </div>
+    </div>
+  </section>
 
-    <button class="btn-principal" onclick="reiniciar()">Volver a intentar</button>
-  </div>
+  <!-- PASO 4: Práctica -->
+  <section id="screen-step4" class="screen">
+    <div class="step-card">
+      <div class="step-header">
+        <span class="step-badge">Paso 4 de 6</span>
+        <h2>Identifica la Licencia</h2>
+        <p class="step-subtitle">Mira la imagen y selecciona la licencia que corresponde</p>
+      </div>
+      <div class="step-content" id="step4-content"></div>
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="goToStep(3)">&#8592; Anterior</button>
+        <button class="btn btn-primary" onclick="goToStep(5)">Siguiente &#8594;</button>
+      </div>
+    </div>
+  </section>
 
-  <!-- Botón fijo de accesibilidad -->
-  <button id="btnEscuchar" class="btn-accesibilidad-fijo" onclick="escucharContenido()">🔊 Escuchar contenido</button>
+  <!-- PASO 5: Juego -->
+  <section id="screen-step5" class="screen">
+    <div class="step-card">
+      <div class="step-header">
+        <span class="step-badge">Paso 5 de 6</span>
+        <h2>Detective de Licencias</h2>
+        <p class="step-subtitle">&iquest;Puedes averiguar qu&eacute; licencia se necesita en cada caso?</p>
+      </div>
+      <div class="step-content" id="step5-content"></div>
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="goToStep(4)">&#8592; Anterior</button>
+        <button class="btn btn-primary" onclick="goToStep(6)">Siguiente &#8594;</button>
+      </div>
+    </div>
+  </section>
 
-  <!-- Pie de licencia del recurso -->
-  <footer id="pie" class="pie-licencia">
-    <img src="img/CC_BY_NC_SA.png" alt="Icono Creative Commons BY-NC-SA" class="icono-cc">
-    <span>
-      Material para el aula de Ofimática © 2026 por Noemí Celaya Mingot está licenciada bajo
-      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">
-        CC BY-NC-SA 4.0
-      </a>.
-    </span>
+  <!-- PASO 6: Evaluación Final -->
+  <section id="screen-step6" class="screen">
+    <div class="step-card">
+      <div class="step-header">
+        <span class="step-badge">Paso 6 de 6</span>
+        <h2>Evaluaci&oacute;n Final</h2>
+        <p class="step-subtitle">Cuestionario de 15 preguntas sobre licencias digitales</p>
+      </div>
+      <div class="step-content" id="step6-content"></div>
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="goToStep(5)">&#8592; Anterior</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PANTALLA FINAL: RESULTADOS -->
+  <section id="screen-final-results" class="screen">
+    <div class="step-card">
+      <div class="final-results-header">
+        <img src="img/logo.png" alt="Logo" class="intro-logo">
+        <h2>Resultados de la Secuencia</h2>
+        <p class="final-results-subtitle">Resumen completo de tu aprendizaje sobre licencias digitales</p>
+      </div>
+      <div id="final-results-content"></div>
+      <div class="step-nav">
+        <button class="btn btn-primary" onclick="goToIntro()">&#8592; Volver al Inicio</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PIE DE PÁGINA (fijo) -->
+  <footer class="footer">
+    <img src="img/CC_BY_NC_SA.png" alt="CC BY-NC-SA" class="footer-cc">
+    <span>Material para el aula de Ofim&aacute;tica &copy; 2026 por <strong>Noem&iacute; Celaya Mingot</strong> est&aacute; licenciada bajo <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank">CC BY-NC-SA 4.0</a></span>
   </footer>
 
-  <script src="js/script.js"></script>
+  <!-- BOTÓN TTS FIJO -->
+  <button id="btn-tts" class="btn-tts-fixed" onclick="toggleTTS()">&#128266; Escuchar</button>
+
+  <!-- BOTÓN INICIO FIJO -->
+  <button class="btn-home-fixed" onclick="goToIntro()" title="Volver al inicio">&#8962; Inicio</button>
+
+  <!-- BOTÓN PANEL DEL PROFESOR -->
+  <button class="btn-teacher" onclick="teacherOpen()" title="Panel del profesor">&#128203; Profesor</button>
+
+  <!-- PANEL DEL PROFESOR -->
+  <div id="screen-teacher" class="screen">
+    <div class="step-card">
+      <div class="step-header">
+        <h2>Panel del Profesor</h2>
+        <p class="step-subtitle">Estadísticas agregadas del alumnado</p>
+      </div>
+      <div id="teacher-content"></div>
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="goToIntro()">&#8592; Volver al Inicio</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/scorm.js"></script>
+  <script src="js/tts.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/step1.js"></script>
+  <script src="js/step2.js"></script>
+  <script src="js/step3.js"></script>
+  <script src="js/step4.js"></script>
+  <script src="js/step5.js"></script>
+  <script src="js/step6.js"></script>
+  <script src="js/results.js"></script>
+  <script src="js/teacher.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
